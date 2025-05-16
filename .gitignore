@@ -10,6 +10,7 @@
 /file\ 333/[Bb]uilds/
 /file\ 333/[Ll]ogs/
 /file\ 333/[Uu]ser[Ss]ettings/
+/file\ 333/[Vv]env/
 *.log
 
 # MemoryCaptures can get excessive in size.
