@@ -8,15 +8,19 @@ using Unity.MLAgents.Sensors;
 public class MoveToBallAgent: Agent
 {
     [SerializeField] private Transform targetTransform;
+    [SerializeField] private Material winMaterial;
+    [SerializeField] private Material loseMaterial;
+    [SerializeField] private MeshRenderer floorMeshRenderer;
 
     public override void OnEpisodeBegin()
     {
-        transform.position = Vector3.zero;
+        transform.localPosition = new Vector3(Random.Range(-3f, +3f), 0, Random.Range(-3f, +3f));
+        targetTransform.localPosition = new Vector3(Random.Range(-3f, +3f), 0, Random.Range(-3f, +3f));
     }
     public override void CollectObservations(VectorSensor sensor)
     {
-        sensor.AddObservation(transform.position);
-        sensor.AddObservation(targetTransform.position);
+        sensor.AddObservation(transform.localPosition);
+        sensor.AddObservation(targetTransform.localPosition);
     }
     public override void OnActionReceived(ActionBuffers actions)
     {
@@ -24,7 +28,7 @@ public class MoveToBallAgent: Agent
         float moveZ = actions.ContinuousActions[1];
 
         float moveSpeed = 2f;
-        transform.position += new Vector3(moveX, 0, moveZ) * Time.deltaTime * moveSpeed; 
+        transform.localPosition += new Vector3(moveX, 0, moveZ) * Time.deltaTime * moveSpeed; 
     }
 
     public override void Heuristic(in ActionBuffers actionsOut)
@@ -38,11 +42,13 @@ public class MoveToBallAgent: Agent
         if ( other.gameObject.tag == "Goal")
         {
             SetReward(+1f);
+            floorMeshRenderer.material = winMaterial;
             EndEpisode();
         }
         if (other.gameObject.tag == "Wall")
         {
             SetReward(-1f);
+            floorMeshRenderer.material = loseMaterial;
             EndEpisode();
         }
     }

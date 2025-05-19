@@ -1,0 +1,42 @@
+{
+    "name": "root",
+    "metadata": {
+        "timer_format_version": "0.1.0",
+        "start_time_seconds": "1747684244",
+        "python_version": "3.9.13 (tags/v3.9.13:6de2ca5, May 17 2022, 16:36:42) [MSC v.1929 64 bit (AMD64)]",
+        "command_line_arguments": "C:\\Users\\jonathancallahan\\Projects\\file-333\\file 333\\venv\\Scripts\\mlagents-learn config/moveToBall.yaml --run-id=test019",
+        "mlagents_version": "0.30.0",
+        "mlagents_envs_version": "0.30.0",
+        "communication_protocol_version": "1.5.0",
+        "pytorch_version": "2.7.0+cpu",
+        "numpy_version": "1.21.2",
+        "end_time_seconds": "1747684247"
+    },
+    "total": 2.4530035,
+    "count": 1,
+    "self": 0.005773499999999654,
+    "children": {
+        "run_training.setup": {
+            "total": 0.12849850000000007,
+            "count": 1,
+            "self": 0.12849850000000007
+        },
+        "TrainerController.start_learning": {
+            "total": 2.3187315,
+            "count": 1,
+            "self": 0.00013179999999968217,
+            "children": {
+                "TrainerController._reset_env": {
+                    "total": 2.3185844,
+                    "count": 1,
+                    "self": 2.3185844
+                },
+                "TrainerController._save_models": {
+                    "total": 1.5300000000273428e-05,
+                    "count": 1,
+                    "self": 1.5300000000273428e-05
+                }
+            }
+        }
+    }
+}
