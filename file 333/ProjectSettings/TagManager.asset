@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Wall
   - Goal
+  - Enemy
+  - Ally
+  - Obstacle
   layers:
   - Default
   - TransparentFX
