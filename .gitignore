@@ -11,6 +11,7 @@
 /file\ 333/[Ll]ogs/
 /file\ 333/[Uu]ser[Ss]ettings/
 /file\ 333/[Vv]env/
+/file\ 333/[Aa]ssets/Imported
 *.log
 
 # MemoryCaptures can get excessive in size.
