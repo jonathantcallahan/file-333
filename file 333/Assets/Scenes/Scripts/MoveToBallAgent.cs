@@ -12,7 +12,6 @@ public class MoveToBallAgent: Agent
     [SerializeField] private Material winMaterial;
     [SerializeField] private Material loseMaterial;
     [SerializeField] private MeshRenderer floorMeshRenderer;
-
     public override void OnEpisodeBegin()
     {
         transform.localPosition = new Vector3(Random.Range(-3f, +3f), 0, Random.Range(-3f, +3f));
@@ -31,6 +30,8 @@ public class MoveToBallAgent: Agent
         float rotateY = actions.ContinuousActions[2];
         int shoot = actions.DiscreteActions[0];
 
+        Debug.Log("Rotation is: " + actions.ContinuousActions[2]);
+
 
         float moveSpeed = 2f;
         transform.localPosition += new Vector3(moveX, 0, moveZ) * Time.deltaTime * moveSpeed;
@@ -39,19 +40,24 @@ public class MoveToBallAgent: Agent
         float rotationAmount = rotateY * rotationSpeed * Time.deltaTime;
         transform.Rotate(0f, rotationAmount, 0f);
 
+        if (Mathf.Abs(rotateY) > 0)
+        {
+            SetReward(-0.1f);
+        }
+
         if (shoot == 1)
         {
             float raycastDistance = 20f;
             string targetTag = "Enemy";
-            Debug.Log("Spacebar Pressed!");
+            
             RaycastHit hit;
             bool hasHit = Physics.Raycast(
-                transform.localPosition,
+                transform.position,
                 transform.forward,
                 out hit,
                 raycastDistance
             );
-            Debug.DrawRay(transform.localPosition, transform.forward * raycastDistance, Color.green);
+            Debug.DrawRay(transform.position, transform.forward * raycastDistance, Color.green);
 
             if (hasHit && hit.collider.CompareTag(targetTag))
             {
@@ -59,8 +65,15 @@ public class MoveToBallAgent: Agent
                 floorMeshRenderer.material = winMaterial;
                 EndEpisode();
             }
+            else
+            {
+                SetReward(-0.5f);
+            }
 
         }
+
+        SetReward(-0.01f);
+
     }
 
     public override void Heuristic(in ActionBuffers actionsOut)
@@ -76,7 +89,6 @@ public class MoveToBallAgent: Agent
 
         if (Input.GetKey(KeyCode.Space))
         {
-            Debug.Log("button press recorded");
             discreteActions[0] = 1;
         }
     }
